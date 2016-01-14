@@ -1,11 +1,4 @@
 #Navigator
-by Eduardo Francos
-<efrancos@efrancos.com> | <http://www.efrancos.fr/textmate>
-
-Copyright &copy; 2012 Eduardo Francos,  All rights reserved.
-
----
-
 ---
 
 ##Release Notes for version 1.0a1
