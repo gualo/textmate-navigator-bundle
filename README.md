@@ -17,15 +17,15 @@ Most features of Navigator should be self explanatory but this document is still
 <b>What it provides</b>  
 The Navigator bundle for TextMate provides four tools to help you navigate among your documents:
 
-* A <a href='javascript:goTo("stack")'>position stack</a> tool
-* A named or timestamped persistent <a href='javascript:goTo("bookmarks")'>bookmarks</a> tool that works across documents
-* A source code <a href='javascript:goTo("tags")'>tagging and lookup</a> tool
-* An <a href='javascript:goTo("notes")'>annotations</a> tool
+* A [position stack](#stack) tool
+* A named or timestamped persistent [bookmarks](#bookmarks) tool that works across documents
+* A source code [tagging and lookup](#tags) tool
+* An [annotations](#notes) tool
 
 ---
 
 ---
-<p id="stack"></p>
+<a name="stack"/>
 ##The Position Stack
 The position stack's basic functionality is to allow you to "push onto a stack" the current cursor position so that you can come back to it later. Every time you push a position a new entry is added to the top of the position's stack. You can then "pop" to the last position or navigate among them backwards and forward.  
 
@@ -34,18 +34,18 @@ The saved positions include the document's file so you may navigate among multip
 <table cellpadding="0" cellspacing="0" width="80%" style="margin-left:auto; margin-right:auto">
 	<tr><td valign="top" style='background-color:lightgray; text-align:justify;'><span style="color:red">Note:&nbsp;&nbsp;</span></td>
 		<td style='background-color:lightgray; text-align:justify;valign:top'>as you edit your documents they will become out of sync with the saved positions as line numbers shift.<br/>
-There is an <a href="javascript:goTo('stack_exp')">experimental feature</a>, disabled by default, that allows for compensating this line shifting.
+There is an [experimental feature](#stack_exp), disabled by default, that allows for compensating this line shifting.
 	</td></tr>
 </table>
 
 ### Commands
 The position stack tool provides the following commands:
-<p id="push_pos"></p>
+<a name="push_pos"/>
 #### **Push Position**  
 Pushes the current cursor position onto the stack
-<p id="pop_pos"></p>
+<a name="pop_pos"/>
 #### **Pop Position**  
-When you want to go back to the last pushed position you just "pop" the position from the stack. Navigator will then navigate back to it removing it at the same time. When used together with the <a href='javascript:goTo("tags")'>tagging and lookup</a> tool this is similar to a "call/return" action.  
+When you want to go back to the last pushed position you just "pop" the position from the stack. Navigator will then navigate back to it removing it at the same time. When used together with the [tagging and lookup](#tags) tool this is similar to a "call/return" action.  
 #### **Go Backward / Go Forward**
 When you have pushed a few positions onto the stack you may navigate backwards and forward within it as you would do with the "go back/go forward" functionality in a Web browser.  
 Navigating forward when you are at the top of the stack will wrap around and bring you to the beginning of it (a tooltip will inform you of this). Likewise, navigating backwards from the beginning of the stack will wrap around to the top of it, i.e. the last pushed position.
@@ -57,7 +57,7 @@ At any time you may clear the navigation history so you can start a new fresh na
 ### Behind the scenes
 The position's stack is saved to a file located in the temporary directory as given by the *TMPDIR* environment variable, by default named `navstack.nav`. This file is not removed when exiting TextMate adding the extra benefit that if you reopen TextMate your previous positions stack may still be there and active, so you may resume your navigation sequence, for instance by using the "Return to Top" command.
 
-<p id='stack_exp'></p>
+<a name='stack_exp'/>
 ### Experimental line shift fix functionality
 This is an experimental feature, disabled by default, that allows for compensating the line shifting when editing the documents.  
 I call it experimental because it does not always succeed :p and also because it uses the TM\_TOOLS plugin (http://blog.macromates.com/2007/hacking-textmate) which must be installed in order for this feature to work.  
@@ -67,7 +67,7 @@ In order to use it you must have TM\_TOOLS installed and have changed the value 
 ---
 
 ---
-<p id="bookmarks"></p>
+<a name="bookmarks"/>
 ##Named Bookmarks
 The named bookmarks tool allows you to set named bookmarks in your documents.  
 The bookmarks are managed in either the global or project scopes.
@@ -75,7 +75,7 @@ The bookmarks are managed in either the global or project scopes.
 <table cellpadding="0" cellspacing="0" width="80%" style="margin-left:auto; margin-right:auto">
 <tr><td valign="top" style='background-color:lightgray; text-align:justify;'><span style="color:red">Note:&nbsp;&nbsp;</span></td>
 	<td style='background-color:lightgray; text-align:justify;valign:top'>as you edit your documents they will become out of sync with the saved bookmark positions as line numbers shift.<br/>
-Use the <a href='javascript:goTo("update_bms");'>Update XXX Bookmarks</a> commands described below to refresh the bookmarks' line numbers.
+Use the [Update XXX Bookmarks](#update_bms) commands described below to refresh the bookmarks' line numbers.
 </td></tr>
 </table>
 
@@ -95,16 +95,16 @@ These commands allow you to navigate to a previously saved bookmark. Navigator w
 If using the Document scope then if the document is part of a project Navigator will use the project scope bookmarks for the document, otherwise it uses the global scope bookmarks.
 
 #### *Call Project/Global/Document Bookmark*
-These commands behave the same as their "Goto" counterparts but before navigating to the selected bookmark they <a href='javascript:goTo("push_pos");'>push</a> the current cursor position so that you can <a href='javascript:goTo("pop_pos");'>pop</a> back to it later.  
+These commands behave the same as their "Goto" counterparts but before navigating to the selected bookmark they [push](#push_pos) the current cursor position so that you can [pop](#pop_pos) back to it later.  
 
 If using the Document scope then if the document is part of a project Navigator will use the project scope bookmarks for the document, otherwise it uses the global scope bookmarks.  
 
 #### *Browse Project/Global Bookmarks*
 These commands allow you to browse the currently saved bookmarks in the scope. A fancy browsing window is displayed which should be easy to use. Each entry can be clicked to jump to that line in that file.  
 The window allows for filtering the listed bookmarks by name, which may be a regular expression (no need to enclose it in '/'s) and by scope filters: Project or Global.  
-The save options button will save the current scope filter settings for use the next time yo open the browsing window. These settings are stored in a file named as the bookmarks files suffixed by *.plist* in the same location as the global bookmarks. This is an experimental feature explained below in the <a href="javascript:goTo('cgi_exp')">CGI Back Call</a> section at the end of this document. 
+The save options button will save the current scope filter settings for use the next time yo open the browsing window. These settings are stored in a file named as the bookmarks files suffixed by *.plist* in the same location as the global bookmarks. This is an experimental feature explained below in the [CGI Back Call](#cgi_exp) section at the end of this document. 
 
-<p id="update_bms"></p>
+<a name="update_bms"/>
 #### *Update Project/Global/Document Bookmarks*
 As you edit your documents they will become out of sync with the saved bookmark positions as line numbers shift.
 These commands "try" to fix this by scanning the bookmarks' documents for their associated line contents for the one nearest the current bookmarks positions. Also, if a bookmark's document doesn't exist anymore that bookmark is removed.
@@ -123,14 +123,14 @@ If on the other hand the path is relative (i.e. does not begin with a '/') then 
 ---
 
 ---
-<p id="tags"></p>
+<a name="tags"/>
 ## *Tags and Lookup*
 The tags and lookup tool provides for source tagging and lookup when working with a project.  
 Source parsing and tagging is done using the underlying Exuberant Ctags program (Version 5.8 which includes experimental support for Objective-C) so it will parse any language known to it.  
 <table cellpadding="0" cellspacing="0" width="80%" style="margin-left:auto; margin-right:auto">
 	<tr><td valign="top" style='background-color:lightgray; text-align:justify;'><span style="color:red">Note:&nbsp;&nbsp;</span></td>
 	<td style='background-color:lightgray; text-align:justify;valign:top'>as you edit your documents they will become out of sync with the saved positions as line numbers shift.<br/>
-There is an <a href="javascript:goTo('stack_exp')">experimental feature</a>, disabled by default, that allows for compensating this line shifting.
+There is an [experimental feature](#stack_exp), disabled by default, that allows for compensating this line shifting.
 </td></tr>
 </table>
   
@@ -140,7 +140,7 @@ The tags tool provides the following commands:
 #### *Call Context Tag*
 This command will use the current context under the cursor to find a matching tagged identifier. The context may be either a text selection or the current word as recognized by TextMate.  
 
-If an unique tag is found then Navigator will <a href='javascript:goTo("push_pos");'>push</a> the current cursor position and navigate to the tag file and position.    
+If an unique tag is found then Navigator will [push](#push_pos) the current cursor position and navigate to the tag file and position.    
 
 If more than one tag is found then a menu will be displayed allowing you to choose the one you want to "call".  
 The selected tags are displayed in up to four groups in this order:
@@ -213,7 +213,7 @@ A secondary helper file is also stored in the project's directory named as the t
 ---
 
 ---
-<p id="notes"></p>
+<a name="notes"/>
 ##Annotations tool
 The annotations tool allows you to easily navigate among your <u>project</u> documents annotations.  
 Annotations are text lines containing tags that determine their type or intent.  
@@ -278,7 +278,6 @@ Note that the matching is case insensitive.
 ---
 
 <a name="cgi_exp">
-<p id="cgi_exp"></p>
 ## CGI Callback
 The CGI callback feature is an experiment in mixing HTML/Javascript for UI design and Ruby for the "back-office" processing in TextMate.  
 
@@ -287,14 +286,8 @@ The CGI callback feature is an experiment in mixing HTML/Javascript for UI desig
 ---
 
 ---
-<p id="history"></p>
+<a name="history"/>
 #History
 
 (1-9-12)
 First release
-
-<script type="text/javascript" charset="utf-8">
-function goTo (id) {
-  document.body.scrollTop = document.getElementById(id).offsetTop - document.images[0].height - 1;
-}
-</script>
