@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby18
+#
+require "#{ENV['TM_BUNDLE_SUPPORT']}/notes.rb"
+Notes.new.goto_note Notes::ALL_NOTES, Notes::FILTER_DOCUMENT</string>
+	<key>input</key>
+	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^~n</string>
+	<key>name</key>
+	<string>Goto Document Annotation…</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>discard</string>
+	<key>uuid</key>
+	<string>767D632E-BB31-4E41-AD3A-521BAEE0313D</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

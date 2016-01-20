@@ -1,0 +1,31 @@
+<script src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/js/navigator.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+var ENV = [];
+<%
+excluded_vars = ["DISPLAY","_","PWD","SHLVL","__CF_USER_TEXT_ENCODING"]
+%x{env}.each{|var_line|
+	var_line = var_line.chomp.strip
+	next if var_line.empty?
+	idx = var_line.index('=')
+	env_var = [var_line[0 .. idx-1], var_line[idx+1 .. var_line.size]]
+	next if excluded_vars.include?(env_var[0])
+	env_var[1] = env_var[1].gsub(/(["<\\])/, '\\\\1')
+%>
+	ENV["<%=env_var[0]%>"] = "<%=env_var[1]%>";
+<%}%>
+</script>
+<div id="saveMessage" class="saveMessage">Applying changes...</div>
+
+<div class="tab_header">
+<table class="tab_table" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<td class="tab_tab" onclick="tabs.activate('tb_bookmarks');" id="tb_bookmarks_title">Bookmarks</td>
+		<td class="tab_tab" onclick="tabs.activate('tb_notes');" id="tb_notes_title">Notes</td>
+		<td class="tab_tab" onclick="tabs.activate('tb_positions');" id="tb_positions_title">Positions</td>
+		<td class="tab_tab" onclick="tabs.activate('tb_tags');" id="tb_tags_title">Tags</td>
+		<td class="tab_tab" onclick="tabs.activate('tb_advanced');" id="tb_advanced_title">Advanced</td>
+	</tr>
+	<tr>
+</table>
+</div>
+<div id="tab_contents" class="tab_contents">

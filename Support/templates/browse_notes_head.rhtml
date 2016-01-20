@@ -1,0 +1,109 @@
+<script type="text/javascript" charset="utf-8">
+var ENV = [];
+<%
+excluded_vars = ["DISPLAY","_","PWD","SHLVL","__CF_USER_TEXT_ENCODING"]
+%x{env}.each{|var_line|
+	var_line = var_line.chomp.strip
+	next if var_line.empty?
+	idx = var_line.index('=')
+	env_var = [var_line[0 .. idx-1], var_line[idx+1 .. var_line.size]]
+	next if excluded_vars.include?(env_var[0])
+	env_var[1] = env_var[1].gsub(/(["<\\])/, '\\\\1')
+%>
+ENV["<%=env_var[0]%>"] = "<%=env_var[1]%>";
+<%}%>
+
+window.note_types = [];
+<% (0..note_types.size-1).each{|type_idx|
+	@log.debug BROWSE_NOTES_LOG, "note_types[#{type_idx}]=#{note_types[type_idx]}"
+	is_checked = type_filters[type_idx].nil? ? true : (type_filters[type_idx] == true)
+	@log.debug BROWSE_NOTES_LOG, "is_checked=#{is_checked}"
+	%>
+	window.note_types[<%=type_idx%>] = <%=is_checked%>;
+<%}%>
+</script>
+<fieldset>
+	<legend>Total of <%=notes.size%> notes, <span id="selectedCount"><%=notes.size%></span> selected</legend>
+	<p>
+		<label class="filter">Filter : </label><input type="text" value="" id="filter" size="50" onkeyup="filter_notes();">
+		<img align="center" onclick="clearFilter();" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/clear_field.gif"/>
+		<input type="checkbox"
+			id="re_filter"
+			value="re_filter"
+			<%if !@settings_helper.get_browser_setting(NotesSettings::RE_FILTER_SETTING).nil? && @settings_helper.get_browser_setting(NotesSettings::RE_FILTER_SETTING)%>
+			checked="checked"
+			<%end%>
+			onchange="reFilterChanged();">Regular expression</input></p>
+	<table cellspacing="5px"><tr>
+	<%
+		row_count = 0
+		filter_idx = 0
+		note_types.each {|note_type|
+			if (row_count += 1) > 10
+				row_count = 0
+				%>
+				</tr><tr>
+			<%
+			end
+			%>
+			<td>
+				<input type="checkbox"
+					id="type_filter_<%=filter_idx%>"
+					value="<%=filter_idx%>"
+					<%if type_filters[filter_idx].nil? || type_filters[filter_idx]%>
+					checked="checked"
+					<%end%>
+					onchange="typeFilterChanged(this);"/>
+					<%=note_type%>
+			</td>
+			<%
+			filter_idx += 1
+		}
+	%>
+	</tr></table>
+	<table>
+		<tr>
+			<td colspan="5">
+				<input type="checkbox"
+					id="no_extras"
+					value="no_extras"
+					<%if @settings_helper.get_browser_setting(NotesSettings::NO_EXTRAS_SETTING).nil? || @settings_helper.get_browser_setting(NotesSettings::NO_EXTRAS_SETTING)%>
+					checked="checked"
+					<%end%>
+					onchange="filter_notes();">
+					Only project files (no extras)</input>
+			</td>
+		</tr>
+		<tr>
+			<td><button type="button" onclick="checkAll(true);">Check all</button>
+				<button type="button" onclick="checkAll(false);">Check none</button></td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td><table ><tr><td>
+				<button type="button" onclick="saveOptions();">Save filter options</button>
+				<button type="button" onclick="refreshProjectAnnotations();">Refresh Project Annotations</button>
+				</td></tr></table>
+			</td>
+			<td id="options_saved_msg" style="text-align:center;border:1px solid black;background-color:yellow; padding:5px" class="content_hidden">Options saved</td>
+		</tr>
+	</table></td>
+</fieldset>
+<br/>
+
+<script type="text/javascript" charset="utf-8">
+
+function Note(type, typeIdx, note, isProjectFile) {
+	this.type = type;
+	this.typeIdx = typeIdx;
+	this.note = note;
+	this.isProjectFile = isProjectFile;
+}
+window.notes = [];
+</script>
+
+<div id="browse_list">
+<table border="0" cellpadding="0" cellspacing="6">
+	<tr>
+		<th style="text-align:left;">Tag<hr></th>
+		<th style="text-align:left;" style="border-bottom-width:2px">File<hr></th>
+		<th style="text-align:left;" width="80%">Note<hr></th>
+	</tr>

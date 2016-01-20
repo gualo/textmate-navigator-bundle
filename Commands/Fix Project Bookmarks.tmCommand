@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby18
+#
+require ENV['TM_BUNDLE_SUPPORT'] + '/bookmarks.rb'
+Bookmarks.new.update_project_bookmarks</string>
+	<key>input</key>
+	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^~b</string>
+	<key>name</key>
+	<string>Update Project Bookmarks</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>toolTip</string>
+	<key>uuid</key>
+	<string>548DB7E0-8EF0-45DA-931F-33B3318C2CE3</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,70 @@
+<script>
+function bmKeyOnFirst(event) {
+	if (event.charCode == 9 && event.shiftKey) {
+		document.getElementById('idSelectBmPathFolder').focus();
+	}
+}
+function bmKeyOnLast(event) {
+	if (event.charCode == 9 && !event.shiftKey) {
+		document.getElementById('fld_TM_NAVIGATOR_BOOKMARKS_FNAME').focus();
+	}
+}
+
+function selectBmPathFolder() {
+	elem = document.getElementById("fld_TM_NAVIGATOR_BOOKMARKS_PATH");
+	// if the path is relative we need to prepend the HOME directory
+	currPath = elem.value;
+	if (currPath[0] != "/") {
+		currPath = ENV['HOME'] + "/" + currPath;
+	}
+	result = folderSelect("Select the path the global bookmarks are saved to", currPath);
+	if (result != "") {
+		// if the path is within te user's HOME directory then remove the HOME directory prefix
+		if (result.indexOf(ENV['HOME']) == 0) {
+			result = result.substring(ENV['HOME'].length+1);
+		}
+		elem.value = result;
+		elem.focus();
+	}
+}
+</script>
+
+<div id="tb_bookmarks_contents" class="tab_contents content_hidden">
+	<form id="bm_form" class="tab_form">
+		<p class="guidelines_title">Bookmarks file name&nbsp;
+			<a class="tooltip guidelines_title" href="#">
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<span class="custom_tt help_tt">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Bookmarks file name</em>
+					The name of the file used to save project as well as
+					global scope bookmarks
+				</span>
+			</a>
+			<br/>
+			<input id="fld_TM_NAVIGATOR_BOOKMARKS_FNAME" tabindex="110" type="text" maxlength="255" size="100" value="<%=ENV['TM_NAVIGATOR_BOOKMARKS_FNAME']%>" 
+					onkeypress="bmKeyOnFirst(event);">
+		</p>
+
+		<p class="guidelines_title">Global bookmarks path&nbsp;
+			<a class="tooltip guidelines_title" href="#">
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<span class="custom_tt help_tt"  style="width:300px">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Global bookmarks path</em>
+					The path the global bookmarks are saved to. This may be either
+					absolute or relative.<br/>
+					If absolute then the path is used "as is", otherwise it is appended
+					to the current user's <b class="monospaced">$HOME</b> directory (currently <b class="monospaced">"<%=ENV['HOME']%>"</b>)
+				</span>
+			</a>
+			<br/>
+			<input id="fld_TM_NAVIGATOR_BOOKMARKS_PATH" tabindex="120" type="text" maxlength="255" size="100" value="<%=ENV['TM_NAVIGATOR_BOOKMARKS_PATH']%>"/>
+			<input class="stdButton" id="idSelectBmPathFolder" tabindex="330" type="button" value="Browse..."
+				onclick="selectBmPathFolder();"
+				onkeypress="bmKeyOnLast(event);"
+				/>
+		<p/>
+	</form>
+</div>
+

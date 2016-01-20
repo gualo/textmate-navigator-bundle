@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Default Annotations Settings</string>
+	<key>settings</key>
+	<dict>
+		<key>browserSettings</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>filter</string>
+				<key>value</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>no_extras</string>
+				<key>value</key>
+				<string>true</string>
+			</dict>
+		</array>
+		<key>notesTags</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>FIXME</string>
+				<key>value</key>
+				<string>\s+(FIX ?ME)\s*:\s*(.*)$</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>TODO</string>
+				<key>value</key>
+				<string>\s+(TODO)\s*:\s*(.*)$</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>NOTE</string>
+				<key>value</key>
+				<string>\s+(NOTE)\s*:\s*(.*)$</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>CHANGED</string>
+				<key>value</key>
+				<string>\s+(CHANGED)\s*:\s*(.*)$</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>DOC</string>
+				<key>value</key>
+				<string>\s+(DOC)\s*:\s*(.*)$</string>
+			</dict>
+		</array>
+	</dict>
+	<key>uuid</key>
+	<string>A374183E-863F-4938-8BF3-F1E71DABCB1A</string>
+</dict>
+</plist>

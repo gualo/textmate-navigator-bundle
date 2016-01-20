@@ -1,0 +1,173 @@
+</table>
+</div>
+
+<!-- -->
+
+<script src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/js/navigator.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript" charset="utf-8">
+
+function saveOptions() {
+	msg = document.getElementById("options_saved_msg");
+	msg.innerHTML = "Saving Options...";
+	msg.className = "content_displayed";
+
+	command = '\
+ENV["TM_BUNDLE_SUPPORT"] = "'+ENV["TM_BUNDLE_SUPPORT"]+'"\n\
+ENV["TM_PROJECT_DIRECTORY"] = "'+ENV["TM_PROJECT_DIRECTORY"]+'"\n\
+ENV["TM_NAVIGATOR_NOTES_SETTINGS_PATH"] = "'+ENV["TM_NAVIGATOR_NOTES_SETTINGS_PATH"]+'"\n\
+ENV["TM_NAVIGATOR_NOTES_SETTINGS_FNAME"] = "'+ENV["TM_NAVIGATOR_NOTES_SETTINGS_FNAME"]+'"\n\
+require "#{ENV["TM_BUNDLE_SUPPORT"]}/notes_settings.rb"\n\
+params = {}\n\
+params["filter"] = "' + document.getElementById("filter").value + '"\n\
+params["no_extras"] = ' + (document.getElementById("no_extras").checked?"true":"false") + '\n\
+params["re_filter"] = ' + (document.getElementById("re_filter").checked?"true":"false") + '\n\
+<%idx = 0;note_types.each {|note_type|%>params["type_filter_<%=note_type%>"] = ' + (document.getElementById("type_filter_<%=idx%>").checked?"true":"false") + '\n<%idx += 1}%>\
+NotesSettings.new.save_options(params)\
+';
+
+	console.log("<pre>"+command+"</pre>");
+
+	rcommand = makeRubyScript(command);
+	console.log("<pre>"+rcommand+"</pre>");
+	
+	process = callScript(rcommand, null);
+	console.log("<pre>"+rcommand+"</pre>" + "\n" + process.status + "\n" + process.outputString);
+
+	msg.className = "content_hidden";
+};
+
+var refreshTimer;
+function refreshProjectAnnotations() {
+	if (!ENV['TMTOOLS']) {
+		alertTMTOOLS();
+		return;
+	}
+	
+	msg = document.getElementById("options_saved_msg");
+	msg.innerHTML = "Refreshing Annotations...";
+	msg.className = "content_displayed";
+
+	process = callScript("touch /Users/gualo/tmp/navphore.txt");
+
+	console.log("process status=" + process.outputString);
+
+	refreshTimer = setTimeout("end_refresh()", 500);
+	callTMCommand("Refresh Project Annotations");
+	console.log("<pre>"+rcommand+"</pre>" + "\n" + process.status + "\n" + process.outputString);
+};
+
+function end_refresh() {
+	console.log("checking end_refresh");
+	clearTimeout(refreshTimer);
+	process = callScript("if [ -e '/Users/gualo/tmp/navphore.txt' ]; then exit 41; else exit 0;fi");
+	if (process.status == 41) {
+		refreshTimer = setTimeout("end_refresh()", 500);
+		return;
+	}
+
+	if (process.status != 0) {
+		console.log("Error checking if file still exists");
+	}
+
+	console.log("refresh has finished");
+	msg.className = "content_hidden";
+	window.close();
+	callTMCommand("Browse Project Annotations…");	
+};
+
+function optionsSaved() {
+	clearTimeout(dataTimer);
+	document.getElementById("options_saved_msg").className = "content_hidden";
+}
+
+function clearFilter() {
+	filter = document.getElementById('filter');
+	filter.value='';
+	filter.focus();
+	filter_notes();
+}
+
+function reFilterChanged() {
+	filter_notes();
+	document.getElementById("filter").focus();
+};
+
+function typeFilterChanged(filter_check) {
+	window.note_types[filter_check.value] = filter_check.checked;
+	filter_notes();
+}
+
+function checkAll(check) {
+	idx = 0;
+	for(type in window.note_types) {
+		window.note_types[type] = check;
+		document.getElementById("type_filter_" + idx).checked = check;
+		idx++;
+	}
+	filter_notes();
+}
+
+function filter_notes() {
+	// Reset the notes' note value to remove highlighting
+	for(idx in window.notes)
+	{
+		note = window.notes[idx];
+		element = document.getElementById("note_note_"+idx);
+		if (element) element.innerHTML = note.note;
+		element = document.getElementById("note_"+idx);
+		if (element) element.className = "";
+	}
+
+	filter = document.getElementById("filter").value.toLowerCase();
+	filter_extras = document.getElementById("no_extras").checked;
+	if (!document.getElementById("re_filter").checked) {
+		filter = escapeRegexp(filter);
+		console.log("escaping regexp to '" + filter + "'");
+	}
+	else {
+		console.log("leaving expression alone as '" + filter + "'");
+	}
+	filterRegexp = new RegExp("(" + filter + ")", "gi");
+	selectedCount = 0;
+	for(idx in window.notes)
+	{
+		note = window.notes[idx];
+		element = document.getElementById("note_"+idx);
+		included = true;
+		if (filter_extras && !note.isProjectFile) {
+			included = false;
+		}
+		else {
+			// first check if the note type is included
+			if (!window.note_types[note.typeIdx]) {
+				included = false;
+			}
+			else {
+				// type is included, check the value filter
+				if (filter.length > 0) {
+					if (filterRegexp.test(note.note)) {
+						highlightNote = note.note.replace(filterRegexp, '<span class="highlight">$1</span>');
+						element = document.getElementById("note_note_"+idx);
+						element.innerHTML = highlightNote;
+					}
+					else {
+						included = false;
+					}
+				}
+			}
+		}
+		element.className = included ? '' : 'content_hidden';
+		if (included) selectedCount++;
+	}
+	document.getElementById("selectedCount").innerHTML = selectedCount;
+}
+
+<%if !@settings_helper.get_browser_setting(NotesSettings::FILTER_SETTING).nil? && !@settings_helper.get_browser_setting(NotesSettings::FILTER_SETTING).empty?%>
+document.getElementById("filter").value = "<%=@settings_helper.get_browser_setting(NotesSettings::FILTER_SETTING)%>"
+<%end%>
+filter_notes();
+document.getElementById("filter").focus();
+
+</script>
+<!-- -->

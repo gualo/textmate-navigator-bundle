@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby18
+#
+File.open("#{ENV['TM_BUNDLE_SUPPORT']}/clear_cache.rb","w"){|f| f.write "# #{Time.now().to_s}"}
+
+require "#{ENV['TM_BUNDLE_SUPPORT']}/navigator_configurator.rb"
+NavigatorConfigurator.new.configure
+
+File.open("#{ENV['TM_BUNDLE_SUPPORT']}/clear_cache.rb","w"){|f| f.write "# #{Time.now().to_s}"}
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^~n</string>
+	<key>name</key>
+	<string>Preferences…</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>uuid</key>
+	<string>6818C126-B35C-40AA-B285-5BCAC2A675FE</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

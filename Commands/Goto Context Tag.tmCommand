@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby18
+#
+require "#{ENV['TM_BUNDLE_SUPPORT']}/tags.rb"
+Tags.new.goto_context_tag</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^~t</string>
+	<key>name</key>
+	<string>Goto Context Tag</string>
+	<key>output</key>
+	<string>discard</string>
+	<key>uuid</key>
+	<string>EA242858-1D4E-473A-80F9-77B9D10C593B</string>
+</dict>
+</plist>

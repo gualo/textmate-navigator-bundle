@@ -1,0 +1,90 @@
+</div>
+
+<div class="commandPane" id="commandPane">
+	<div style="position:relative; height:150px;">
+		<a class="commandButton rcommandButton" id="generalHelp" href="#"
+			onclick="displayHelp()"
+		>
+			<img class="rcommandButton" valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+		</a>
+		<div class="rcommandButton">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div class="rcommandButton"><input class="commandButton" id="btnApply" tabindex="1020" type="button" value="  OK  "
+			onclick="applyChanges()"/></div>
+		<div class="rcommandButton"><input class="commandButton" id="btnCancel" tabindex="1010" type="button" value="Cancel"
+			onclick="cancelChanges()"/>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+var reloadCountdown = 0;
+var reloadTimerId;
+
+function applyChanges() {
+	msg = document.getElementById("saveMessage");
+	msg.style.left = "35%";
+	
+	command = '\
+ENV["TM_BUNDLE_SUPPORT"] = "'+ENV["TM_BUNDLE_SUPPORT"]+'"\n\
+ENV["TM_PROJECT_DIRECTORY"] = "'+ENV["TM_PROJECT_DIRECTORY"]+'"\n\
+require "#{ENV["TM_BUNDLE_SUPPORT"]}/navigator_configurator.rb"\n\
+params = {}\n';
+
+	all = document.getElementsByTagName("*");
+	for (i=0, max=all.length; i < max; i++) {
+		field = all[i];
+		if (field.id.substring(0,4) == "fld_") {
+			console.log(field.id + "=" + field.value);
+			selector = field.nodeName + "_" + field.type;
+			switch (selector) {
+				case "INPUT_text":
+				case "TEXTAREA_":
+			 		command = command + 'params["'+field.id.substring(4)+'"] = "' + escapeEscapes(field.value) + '"\n';
+					break;
+				case "INPUT_checkbox":
+					value = field.checked ? "1" : "0";
+					command = command + 'params["'+field.id.substring(4)+'"] = "' + value + '"\n';
+					break;
+			}
+		}
+	}
+	
+	msg.style.left = "-9999px";
+	window.close();
+
+	command = command + 'NavigatorConfigurator.new.apply_changes(params)\n';
+	console.log(command);
+	process = callRubyScript(command, null);
+};
+
+function cancelChanges() {
+	window.close();
+};
+
+function displayHelp() {
+	if (ENV['TMTOOLS'])
+		callTMCommand("Navigator Help");
+	else
+		callScript("/usr/bin/open -a /Applications/Safari.app \"" + ENV['TM_BUNDLE_SUPPORT'] + "/../help.html\"");	
+};
+
+var tabs;
+function initTabs() {
+	tabs = new Tabs();
+	tabs.addTab("tb_bookmarks", "fld_TM_NAVIGATOR_BOOKMARKS_FNAME");
+	tabs.addTab("tb_notes", "fld_TM_NAVIGATOR_NOTES_IGNORE");
+	tabs.addTab("tb_positions", "fld_TM_NAVIGATOR_NAVSTACK_FNAME");
+	tabs.addTab("tb_tags", "fld_TM_NAVIGATOR_TAGS_IGNORE");
+	tabs.addTab("tb_advanced", "fld_TM_NAVIGATOR_SMART_POSITIONING");
+	
+	// tabs.activate("tb_advanced");
+	tabs.activate("tb_bookmarks");
+};
+
+
+</script>
+
+<script type="text/javascript" charset="utf-8">
+setTimeout(initTabs, 50)
+</script>

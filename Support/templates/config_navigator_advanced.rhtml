@@ -1,0 +1,65 @@
+<script>
+function advKeyOnFirst(event) {
+	if (event.charCode == 9 && event.shiftKey) {
+		document.getElementById('fld_TM_NAVIGATOR_MAX_DELTA_LINES').focus();
+	}
+}
+function advKeyOnLast(event) {
+	if (event.charCode == 9 && !event.shiftKey) {
+		document.getElementById('fld_TM_NAVIGATOR_SMART_POSITIONING').focus();
+	}
+}
+
+function adjustMaxDeltaLines(inputControl) {
+	if (inputControl.value < 1) inputControl.value = 1;
+	if (inputControl.value > 50) inputControl.value = 50;
+}
+
+</script>
+<div id="tb_advanced_contents" class="tab_contents content_hidden">
+	<form id="advanced_form" class="tab_form">
+		<p class="guidelines_title">
+			<input id="fld_TM_NAVIGATOR_SMART_POSITIONING" tabindex="430" type="checkbox"
+				<%=(ENV['TM_NAVIGATOR_SMART_POSITIONING'].to_i == 0) ? "unchecked" : "checked" %>
+				onkeypress="advKeyOnFirst(event);">
+			Use smart positioning
+			<a class="tooltip" href="#">&nbsp;
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<span class="custom_tt help_tt">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Smart positioning (Experimental)</em>
+					When positioning in a file this helps to compensate the line
+					shifting in modified documents.
+				</span>
+			</a>
+			<br>
+		</p>
+
+		<p class="guidelines_title">Max delta lines:&nbsp;
+			<input class="spinner numeric" id="fld_TM_NAVIGATOR_MAX_DELTA_LINES" tabindex="410" type="text"  size="3" value="<%=ENV['TM_NAVIGATOR_MAX_DELTA_LINES']%>" 
+					onkeypress="advKeyOnLast(event);"
+					onblur="adjustMaxDeltaLines(this);"
+					/>
+			<a class="tooltip guidelines_title" href="#">
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<span class="custom_tt help_tt">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Max delta lines</em>
+					When using smart positioning Navigator will compensate up to this number
+					of lines shifted from the saved position. Beyond that number Navigator
+					gives up trying to compensate and sets the position to the saved one.
+				</span>
+			</a>
+			<br/>
+		</p>
+				
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	</form>
+</div>

@@ -1,0 +1,52 @@
+<script type="text/javascript">
+function notesKeyOnFirst(event) {
+	if (event.charCode != 9 || !event.shiftKey) return;
+	document.getElementById('fld_TM_NAVIGATOR_NOTES_FNAME').focus();
+}
+
+function notesKeyOnLast(event) {
+	if (event.charCode != 9 || event.shiftKey) return;
+	document.getElementById('fld_TM_NAVIGATOR_NOTES_IGNORE').focus();
+}
+
+</script>
+
+<div id="tb_notes_contents" class="tab_contents content_hidden">
+	<form id="notes_form" name="notes_form" class="tab_form">
+		<p class="guidelines_title">Ignored files&nbsp;
+			<a class="tooltip guidelines_title" href="#">
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<span class="custom_tt help_tt">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Ignored files</em>
+					When selecting files for notes scanning Navigator will ignore files whose
+					full path matches this regular expression.
+				</span>
+			</a>
+			<br>
+			<input id="fld_TM_NAVIGATOR_NOTES_IGNORE" tabindex="210" type="text" maxlength="255" size="100" value="<%=ENV['TM_NAVIGATOR_NOTES_IGNORE']%>"
+				onkeypress="notesKeyOnFirst(event);">
+		</p>
+		<p class="guidelines_title">Notes file name&nbsp;
+			<a class="tooltip guidelines_title" href="#">
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<span class="custom_tt help_tt">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Notes file name</em>
+					The project's notes are saved to this file located in each project's base
+					directory.
+				</span>
+			</a>
+			<br>
+			<input id="fld_TM_NAVIGATOR_NOTES_FNAME" tabindex="220" type="text" size="50" value="<%=ENV['TM_NAVIGATOR_NOTES_FNAME']%>"
+				onkeypress="notesKeyOnLast(event);"/>
+		</p>
+	</form>
+	<p>
+		In addition to the project files (those in the directory tree based at the project's directory) Navigator may also scan any paths specified by the <b><i>project specific</i></b> environment variable <b>TM_NAVIGATOR_PROJECT_NOTES_PATH</b>.<br>
+		This variable may contain a list of ':' separated paths to include in the scan.<br>
+		(currently <span class="monospaced"><%=
+							(ENV['TM_NAVIGATOR_PROJECT_NOTES_PATH'].nil? || ENV['TM_NAVIGATOR_PROJECT_NOTES_PATH'].empty?) ? "empty" : "\"#{ENV['TM_NAVIGATOR_PROJECT_NOTES_PATH']}\""
+							%></span>)
+	</p>
+</div>

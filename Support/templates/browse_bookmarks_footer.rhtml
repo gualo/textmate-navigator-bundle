@@ -1,0 +1,57 @@
+</table>
+</div>
+
+<!-- -->
+<script type="text/javascript" charset="utf-8">
+
+function filter_bookmarks() {
+	// Reset the bookmarks' visibility, name and line contents value to remove highlighting
+	for(idx in window.bookmarks)
+	{
+		bm = window.bookmarks[idx];
+		element = document.getElementById("bm_"+idx);
+		if (element) element.className = "";
+		element = document.getElementById("bm_name_"+idx);
+		if (element) element.innerHTML = bm.mnemonic;
+		element = document.getElementById("bm_contents_"+idx);
+		if (element) element.innerHTML = bm.contents;
+	}
+
+	filter = document.getElementById("filter").value.toLowerCase();
+	filterRegexp = new RegExp("(" + filter + ")", "gi");
+	selectedCount = 0;
+	for(var idx = 0; idx < window.bookmarks.length; idx++)
+	{
+		included = false;
+		var bm = window.bookmarks[idx];
+
+		if (filter.length > 0) {
+			filterRegexp.lastIndex = 0;
+			if (filterRegexp.test(bm.mnemonic)) {
+				included = true;
+				highlightBm = bm.mnemonic.replace(filterRegexp, '<span class="highlight">$1</span>');
+				element = document.getElementById("bm_name_"+idx);
+				element.innerHTML = highlightBm;
+			}
+			filterRegexp.lastIndex = 0;
+			if (filterRegexp.test(bm.contents)) {
+				included = true;
+				highlightBm = bm.contents.replace(filterRegexp, '<span class="highlight">$1</span>');
+				element = document.getElementById("bm_contents_"+idx);
+				element.innerHTML = highlightBm;
+			}
+		}
+		else {
+			included = true;
+		}
+		element = document.getElementById("bm_"+idx);
+		element.className = included ? '' : 'content_hidden';
+		if (included) selectedCount++;
+	}
+	document.getElementById("selectedCount").innerHTML = selectedCount;
+}
+
+document.getElementById("filter").focus();
+
+</script>
+<!-- -->

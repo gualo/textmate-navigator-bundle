@@ -1,0 +1,130 @@
+<script>
+function tagKeyOnFirst(event) {
+	if (event.charCode == 9 && event.shiftKey) {
+		document.getElementById('idSelectGlobalTagPathFolder').focus();
+	}
+}
+function tagKeyOnLast(event) {
+	if (event.charCode == 9 && !event.shiftKey) {
+		document.getElementById('fld_TM_NAVIGATOR_TAGS_IGNORE').focus();
+	}
+}
+
+function selectGlobalTagPathFolder() {
+	elem = document.getElementById("fld_TM_NAVIGATOR_GLOBAL_TAG_FILE_PATH");
+	// if the path is relative we need to prepend the HOME directory
+	currPath = elem.value;
+	if (currPath[0] != "/") {
+		currPath = ENV['HOME'] + "/" + currPath;
+	}
+	result = folderSelect("Select the path where the global tags file is saved to", currPath);
+	if (result != "") {
+		// if the path is within te user's HOME directory then remove the HOME directory prefix
+		if (result.indexOf(ENV['HOME']) == 0) {
+			result = result.substring(ENV['HOME'].length+1);
+		}
+		
+		elem.value = result;
+		elem.focus();
+	}
+}
+
+</script>
+<div id="tb_tags_contents" class="tab_contents content_hidden">
+	<form id="tags_form" class="tab_form">
+		<p class="guidelines_title">Ignored files&nbsp;
+			<a class="tooltip guidelines_title" href="#">
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<span class="custom_tt help_tt">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Ignored files</em>
+					When selecting files for tagging Navigator will ignore files whose full
+					path matches this regular expression.
+				</span>
+			</a>
+			<br/>
+			<input id="fld_TM_NAVIGATOR_TAGS_IGNORE" tabindex="410" type="text" size="100" value="<%=ENV['TM_NAVIGATOR_TAGS_IGNORE']%>" 
+					onkeypress="tagKeyOnFirst(event);">
+		</p>
+					
+		<p class="guidelines_title">Additional global tagging paths&nbsp;
+			<a class="tooltip guidelines_title" href="#">
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<span class="custom_tt help_tt">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Additional global tagging paths</em>
+					This variable sets additional paths to be tagged
+					and used for all projects.<br/>
+					It may contain a list of ‘:’ separated paths to include in the scan.
+				</span>
+			</a>
+			<br/>
+			<textarea id="fld_TM_NAVIGATOR_GLOBAL_TAG_PATH" tabindex="420" style="width:100%"rows="3" cols="100"/><%=ENV['TM_NAVIGATOR_GLOBAL_TAG_PATH']%></textarea>
+		</p>
+
+		<p class="guidelines_title">Use smart lookup
+			<a class="tooltip" href="#">
+				<input id="fld_TM_NAVIGATOR_SMART_LOOKUP" tabindex="430" type="checkbox" <%=(ENV['TM_NAVIGATOR_SMART_LOOKUP']).empty? ? "uncheked" : "checked" %>/>&nbsp;
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<br/>
+				<span class="custom_tt help_tt">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Smart lookup</em>
+					This variable determines whether Navigator should apply further logic to reduce
+					the number of candidates in a lookup.
+				</span>
+			</a>
+	</p>
+		
+		<p class="guidelines_title">Tags file name&nbsp;
+			<a class="tooltip guidelines_title" href="#">
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<span class="custom_tt help_tt">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Tags file name</em>
+					The name of the file used to save project  as well as global scope tags.
+				</span>
+			</a>
+			<br/>
+			<input id="fld_TM_NAVIGATOR_TAGS_FNAME" tabindex="440" type="text" size="50" value="<%=ENV['TM_NAVIGATOR_TAGS_FNAME']%>"/>
+		</p>
+
+		<p class="guidelines_title">Global tags file path&nbsp;
+			<a class="tooltip guidelines_title" href="#">
+				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<span class="custom_tt help_tt"  style="width:300px">
+					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<em>Global tags file path</em>
+					The path the global tags are saved to. This may be either
+					absolute or relative.<br/>
+					If absolute then the path is used "as is", otherwise it is appended
+					to the current user's <b class="monospaced">$HOME</b> directory (currently <b class="monospaced">"<%=ENV['HOME']%>"</b>)
+				</span>
+			</a>
+			<br/>
+			<input id="fld_TM_NAVIGATOR_GLOBAL_TAG_FILE_PATH" tabindex="450" type="text" size="100" value="<%=ENV['TM_NAVIGATOR_GLOBAL_TAG_FILE_PATH']%>"/>
+			<input class="stdButton" id="idSelectGlobalTagPathFolder" tabindex="460" type="button" value="Browse..."
+				onclick="selectGlobalTagPathFolder();"
+				onkeypress="tagKeyOnLast(event);"
+				/>
+		<p/>
+		
+		<p>In addition to the project files (those in the directory tree based
+			at the project's directory) Navigator may also scan any paths specified by the
+			<u>project specific</u> environment variable <b>TM_NAVIGATOR_PROJECT_TAGS_PATH</b>.
+			<br/>
+			This variable may contain a list of ':' separated paths to include in the scan.<br/>
+			(currently <span class="monospaced"><%=
+				(ENV['TM_NAVIGATOR_PROJECT_TAGS_PATH'].nil? || ENV['TM_NAVIGATOR_PROJECT_TAGS_PATH'].empty?) ? "empty" : "\"#{ENV['TM_NAVIGATOR_PROJECT_TAGS_PATH']}\""
+				%></span>)
+		</p>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	</form>
+</div>

@@ -1,0 +1,19 @@
+<script type="text/javascript" charset="utf-8">
+window.notes.push(new Note("<%=note.note_type%>", <%=get_note_type_index(note, types_matcher)%>, "<%=html_escape(note.note)%>", <%=note.projectFile?%>));
+</script>
+<tr id="note_<%=note_idx%>" note_type="<%=note.note_type%>" class="">
+	<td style="text-align:left" class="note_type" valign="top">
+		<%=note.note_type%>
+	</td>
+	<td style="text-align:left" class="note_file" valign="top">
+		<a title="<%= html_escape(note.path) %>"
+			<% if !note.note.strip.empty? && ENV['TM_NAVIGATOR_SMART_POSITIONING'].to_i != 0 && !"#{ENV['TMTOOLS']}".empty?%>
+				href="javascript:gotoFile('<%=note.path%>', '/<%=Navigator.escape_regexp(note.note, true)%>/i', <%=note.line%>, 1)"><%= File.basename(note.path) %>(<%= note.line %>)</a>
+			<%else%>
+				href="<%= Navigator.make_file_link(note.path, note.line) %>"><%= File.basename(note.path) %>(<%= note.line %>)</a>
+			<%end%>
+	</td>
+	<td style="text-align:left" id="note_note_<%=note_idx%>" class="note_note" valign="top">
+		<%= note.note %>
+	</td>
+</tr>

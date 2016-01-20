@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby18
+#
+require ENV['TM_BUNDLE_SUPPORT'] + '/bookmarks_browser.rb'
+Bookmarks.new.browse_global_bookmarks</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^~b</string>
+	<key>name</key>
+	<string>Browse Global Bookmarks…</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>uuid</key>
+	<string>0B5E5AF9-52D1-4F02-BC78-05A7576926A4</string>
+</dict>
+</plist>

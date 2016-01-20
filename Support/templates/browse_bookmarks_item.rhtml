@@ -1,0 +1,19 @@
+<script type="text/javascript" charset="utf-8">
+window.bookmarks.push(new Bookmark("<%=bm.name%>", "<%=html_escape(bm.contents)%>"));
+</script>
+<tr id="bm_<%=bm_idx%>">
+	<td style="text-align:left" class="bm_name" valign="top">
+		<a id="bm_name_<%=bm_idx%>" title="<%= html_escape(bm.full_path) %>"
+			<% if ENV['TM_NAVIGATOR_SMART_POSITIONING'].to_i == 1 && !"#{ENV['TMTOOLS']}".empty?%>
+				href="javascript:gotoFile('<%=bm.full_path%>', '/<%=Navigator.escape_regexp(bm.to_lookup_expression, true)%>/i', <%=bm.line%>, 1)"><%= File.basename(note.path) %>(<%= note.line %>)</a>
+			<%else%>
+				href="<%= Navigator.make_file_link(bm.full_path, bm.line) %>"><%= bm.name %></a>
+			<%end%>
+	</td>
+	<td style="text-align:left" valign="top">
+		<%= File.basename(bm.full_path) %>(<%= bm.line %>)
+	</td>
+	<td id="bm_contents_<%=bm_idx%>" style="text-align:left" class="bm_contents" valign="top">
+		<%= bm.contents %>
+	</td>
+</tr>

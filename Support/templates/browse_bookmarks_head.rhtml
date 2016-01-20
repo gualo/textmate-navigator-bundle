@@ -1,0 +1,21 @@
+<fieldset>
+	<legend>Total of <%= bookmarks.size%> bookmarks, <span id="selectedCount"><%= bookmarks.size%></span> selected</legend>
+	<p><label class="filter">Filter : </label><input type="text" value="" id="filter" size="50" onkeyup="filter_bookmarks();"></p>
+</fieldset>
+<br/>
+
+<script type="text/javascript" charset="utf-8">
+function Bookmark(bm_name, bm_contents) {
+	this.mnemonic = bm_name;
+	this.contents = bm_contents;
+}
+window.bookmarks = [];
+</script>
+
+<div id="browse_list">
+<table border="0" cellpadding="0" cellspacing="6">
+	<tr>
+		<th style="text-align:left;" width="30%">Bookmark Name<hr></th>
+		<th style="text-align:left;" style="border-bottom-width:2px">File<hr></th>
+		<th style="text-align:left;" width="80%">Line contents<hr></th>
+	</tr>
