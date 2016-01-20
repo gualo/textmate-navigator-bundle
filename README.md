@@ -1,8 +1,6 @@
 #Navigator
 ---
 
-You can [test link](#notes_tech).
-
 ##Release Notes for version 1.0a1
 This is the first release of my Navigator system for TextMate.  
 This is also my first shot at a Ruby program longer than scripts a few lines long, so if you go into the sources please bear with me, there are certainly better ways/idioms to do things in Ruby. That being said, I'm open to criticism, advice and generally whatever may improve my knowledge of Ruby or programming in general for that matter.
@@ -31,12 +29,8 @@ The position stack's basic functionality is to allow you to "push onto a stack" 
 
 The saved positions include the document's file so you may navigate among multiple documents easily. Don't worry, even if the new position is in a document that is not currently opened in TextMate, Navigator will open it again before positioning the cursor.
 
-<table cellpadding="0" cellspacing="0" width="80%" style="margin-left:auto; margin-right:auto">
-	<tr><td valign="top" style='background-color:lightgray; text-align:justify;'><span style="color:red">Note:&nbsp;&nbsp;</span></td>
-		<td style='background-color:lightgray; text-align:justify;valign:top'>as you edit your documents they will become out of sync with the saved positions as line numbers shift.<br/>
+**Note**: As you edit your documents they will become out of sync with the saved positions as line numbers shift.
 There is an [experimental feature](#stack_exp), disabled by default, that allows for compensating this line shifting.
-	</td></tr>
-</table>
 
 ### Commands
 The position stack tool provides the following commands:
@@ -72,12 +66,8 @@ In order to use it you must have TM\_TOOLS installed and have changed the value 
 The named bookmarks tool allows you to set named bookmarks in your documents.  
 The bookmarks are managed in either the global or project scopes.
 
-<table cellpadding="0" cellspacing="0" width="80%" style="margin-left:auto; margin-right:auto">
-<tr><td valign="top" style='background-color:lightgray; text-align:justify;'><span style="color:red">Note:&nbsp;&nbsp;</span></td>
-	<td style='background-color:lightgray; text-align:justify;valign:top'>as you edit your documents they will become out of sync with the saved bookmark positions as line numbers shift.<br/>
+**Note**: As you edit your documents they will become out of sync with the saved bookmark positions as line numbers shift.
 Use the [Update XXX Bookmarks](#update_bms) commands described below to refresh the bookmarks' line numbers.
-</td></tr>
-</table>
 
 ### Commands
 The bookmarks tool provides the following commands:
@@ -127,13 +117,9 @@ If on the other hand the path is relative (i.e. does not begin with a '/') then 
 ## *Tags and Lookup*
 The tags and lookup tool provides for source tagging and lookup when working with a project.  
 Source parsing and tagging is done using the underlying Exuberant Ctags program (Version 5.8 which includes experimental support for Objective-C) so it will parse any language known to it.  
-<table cellpadding="0" cellspacing="0" width="80%" style="margin-left:auto; margin-right:auto">
-	<tr><td valign="top" style='background-color:lightgray; text-align:justify;'><span style="color:red">Note:&nbsp;&nbsp;</span></td>
-	<td style='background-color:lightgray; text-align:justify;valign:top'>as you edit your documents they will become out of sync with the saved positions as line numbers shift.<br/>
+**Note**: As you edit your documents they will become out of sync with the saved positions as line numbers shift.<br/>
 There is an [experimental feature](#stack_exp), disabled by default, that allows for compensating this line shifting.
-</td></tr>
-</table>
-  
+
 ### Commands
 The tags tool provides the following commands:
 
@@ -277,7 +263,7 @@ Note that the matching is case insensitive.
 
 ---
 
-<a name="cgi_exp">
+<a name="cgi_exp"/>
 ## CGI Callback
 The CGI callback feature is an experiment in mixing HTML/Javascript for UI design and Ruby for the "back-office" processing in TextMate.  
 
@@ -289,5 +275,5 @@ The CGI callback feature is an experiment in mixing HTML/Javascript for UI desig
 <a name="history"/>
 #History
 
-(1-9-12)
+(20/1/2016)
 First release
