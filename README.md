@@ -263,6 +263,7 @@ This may be used for instance to include project related libraries or projects o
 
 When selecting files for scanning Navigator will ignore files whose full path matches the regular expression specified in the environment variable *TM\_NAVIGATOR\_NOTES\_IGNORE*. It may be modified in the *Settings* preferences section of the Navigator bundle. 
 
+<a name="notes_tech">
 ### Behind the scenes
 A project's notes are saved in the project's directory to a file named as specified by the environment variable *TM\_NAVIGATOR\_NOTES\_FNAME*, by default ***.notes.nav***, a hidden file. You may change it in the *Settings* preferences section of the Navigator bundle.  
 
