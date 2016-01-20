@@ -44,6 +44,7 @@ class NotesSettings
     @log = NavLogger.get_logger
     @log.level = NavLogger::WARN
     @log.set_subjects SETTINGS_NOTES_LOG
+    @log.set_subjects 0
 
     # if the notes settings path is absolute (i.e. starts with a '/') then use it as is
     # otherwise use it as suffix after the user's HOME directory

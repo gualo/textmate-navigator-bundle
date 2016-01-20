@@ -7,12 +7,8 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby18
 #
-File.open("#{ENV['TM_BUNDLE_SUPPORT']}/clear_cache.rb","w"){|f| f.write "# #{Time.now().to_s}"}
-
 require "#{ENV['TM_BUNDLE_SUPPORT']}/navigator_configurator.rb"
 NavigatorConfigurator.new.configure
-
-File.open("#{ENV['TM_BUNDLE_SUPPORT']}/clear_cache.rb","w"){|f| f.write "# #{Time.now().to_s}"}
 </string>
 	<key>input</key>
 	<string>none</string>

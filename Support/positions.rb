@@ -50,7 +50,8 @@ class Positions
 	def initialize
 		@log = NavLogger.get_logger
 		@log.level = NavLogger::DEBUG
-		@log.set_subjects 0  # POSITION_INFO_LOG | POSITION_TAG_LOG
+    # @log.set_subjects POSITION_INFO_LOG | POSITION_TAG_LOG
+		@log.set_subjects 0
 		@log.use_html = true;
 
     navstack_path = ENV['TM_NAVIGATOR_NAVSTACK_PATH']
@@ -338,7 +339,8 @@ class PositionInfo
 	def initialize(*args)
 		@log = NavLogger.get_logger
 		@log.level = NavLogger::WARN
-		@log.set_subjects Positions::POSITION_INFO_LOG
+    # @log.set_subjects Positions::POSITION_INFO_LOG
+		@log.set_subjects 0
 
 		if (args.size > 1)
 			init_from_position_components args[0], args[1], args[2], args[3]

@@ -12,7 +12,7 @@
 				<key>name</key>
 				<string>TM_NAVIGATOR_BOOKMARKS_PATH</string>
 				<key>value</key>
-				<string>Library/Application Support/com.efrancos.Navigator</string>
+				<string>Library/Application Support/Navigator</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -30,7 +30,7 @@
 				<key>name</key>
 				<string>TM_NAVIGATOR_NAVSTACK_PATH</string>
 				<key>value</key>
-				<string>$TMPDIR</string>
+				<string>/var/folders/nb/dgtm8lc92sgb7x1dz21bk8j00000gn/T/</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -84,7 +84,7 @@
 				<key>name</key>
 				<string>TM_NAVIGATOR_NOTES_SETTINGS_PATH</string>
 				<key>value</key>
-				<string>Library/Application Support/com.efrancos.Navigator</string>
+				<string>Library/Application Support/Navigator</string>
 			</dict>
 			<dict>
 				<key>name</key>

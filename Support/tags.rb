@@ -51,7 +51,8 @@ class Tags
     @log = NavLogger.get_logger
     @log.level = NavLogger::DEBUG
     @log.use_html = false
-    @log.set_subjects POSITION_TAG_LOG  # | REFRESH_TAGS_LOG | TAG_INFO_LOG | HOUSE_KEEPING_LOG
+    # @log.set_subjects POSITION_TAG_LOG | REFRESH_TAGS_LOG | TAG_INFO_LOG | HOUSE_KEEPING_LOG
+    @log.set_subjects 0
 
     # if we have an active project then add it's directory to the
     # project tags path
@@ -86,7 +87,8 @@ class Tags
         @global_tag_paths.push(File.expand_path(path))
       }
     end
-    @log.debug POSITION_TAG_LOG, "@global_tag_paths=#{@global_tag_paths.inspect}"
+    @log.debug POSITION_TAG_LOG, "aaaa @global_tag_paths=#{@global_tag_paths.inspect}"
+    @log.debug POSITION_TAG_LOG, "aaaa @global_tag_paths=#{@global_tag_paths.inspect}"
 
     @files_list_path = ENV['TMPDIR'] + "tags.lst"
     @clean_tags_path = ENV['TMPDIR'] + "cleantags.lst"
@@ -670,7 +672,8 @@ class TagInfo
   def initialize
     @log = NavLogger.get_logger
     @log.level = NavLogger::WARN
-    @log.set_subjects Tags::TAG_INFO_LOG
+    # @log.set_subjects Tags::TAG_INFO_LOG
+    @log.set_subjects 0
   end
 
   def self.from_tag_file(tag_line)

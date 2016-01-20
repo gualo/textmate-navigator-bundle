@@ -39,7 +39,7 @@ require ENV['TM_BUNDLE_SUPPORT'] + '/bookmarks.rb'
 require ENV['TM_BUNDLE_SUPPORT'] + '/positions.rb'
 require ENV['TM_BUNDLE_SUPPORT'] + '/notes.rb'
 require ENV['TM_BUNDLE_SUPPORT'] + '/tags.rb'
-require ENV['TM_BUNDLE_SUPPORT'] + '/clear_cache.rb'
+# require ENV['TM_BUNDLE_SUPPORT'] + '/clear_cache.rb'
 
 
 class NavigatorConfigurator
@@ -49,7 +49,8 @@ class NavigatorConfigurator
 		@log = NavLogger.get_logger
 		@log.level = NavLogger::WARN
 		@log.use_html = false
-		@log.set_subjects CONFIGURATION_LOG
+    # @log.set_subjects CONFIGURATION_LOG
+    @log.set_subjects 0
 		@tabs = ["bookmarks", "notes", "positions", "tags", "advanced"]
 	end
 

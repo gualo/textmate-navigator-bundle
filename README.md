@@ -1,7 +1,7 @@
 #Navigator
 ---
 
-##Release Notes for version 1.0a1
+##Release Notes
 This is the first release of my Navigator system for TextMate.  
 This is also my first shot at a Ruby program longer than scripts a few lines long, so if you go into the sources please bear with me, there are certainly better ways/idioms to do things in Ruby. That being said, I'm open to criticism, advice and generally whatever may improve my knowledge of Ruby or programming in general for that matter.
 
