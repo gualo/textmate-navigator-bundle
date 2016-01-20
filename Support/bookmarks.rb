@@ -50,7 +50,8 @@ class Bookmarks
   def initialize
     @log = NavLogger.get_logger
     @log.level = NavLogger::WARN
-    @log.set_subjects UPDATE_BMS_LOG | BOOKMARK_INFO_LOG
+    # @log.set_subjects UPDATE_BMS_LOG | BOOKMARK_INFO_LOG
+    @log.set_subjects 0
 
     prj_dir = "#{ENV['TM_PROJECT_DIRECTORY']}"
     if !prj_dir.empty?
@@ -520,7 +521,8 @@ class BookmarkInfo
   def initialize()
     @log = NavLogger.get_logger
     @log.level = NavLogger::WARN
-    @log.set_subjects Bookmarks::BOOKMARK_INFO_LOG
+    # @log.set_subjects Bookmarks::BOOKMARK_INFO_LOG
+    @log.set_subjects 0
   end
 
   def self.for_name(name, scope)

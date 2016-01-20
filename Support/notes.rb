@@ -60,9 +60,9 @@ class Notes
   def initialize
     @log = NavLogger.get_logger
     @log.level = NavLogger::DEBUG
-    @log.set_subjects BROWSE_NOTES_LOG | REFRESH_NOTES_LOG | TOOLS_NOTES_LOG | SETTINGS_NOTES_LOG
+    # @log.set_subjects BROWSE_NOTES_LOG | REFRESH_NOTES_LOG | TOOLS_NOTES_LOG | SETTINGS_NOTES_LOG
     @log.set_subjects 0
-    # @log.use_html = false
+    @log.use_html = false
 
     # we _MUST_ have an active project. Add it's directory to the
     # project notes path
@@ -537,7 +537,8 @@ class NoteInfo
 	def initialize
     @log = NavLogger.get_logger
     @log.level = NavLogger::WARN
-    @log.set_subjects Notes::NOTES_INFO_LOG
+    # @log.set_subjects Notes::NOTES_INFO_LOG
+    @log.set_subjects 0
 	end
 	
   def self.from_tag_line(note_line)

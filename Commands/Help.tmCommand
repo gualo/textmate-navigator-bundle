@@ -11,7 +11,7 @@
 . "$TM_SUPPORT_PATH/lib/webpreview.sh"
 html_header "Navigator Bundle Help" "Navigator"
 
-"$TM_SUPPORT_PATH/lib/markdown_to_help.rb" &lt; "$TM_BUNDLE_SUPPORT/../help.mk"
+"$TM_SUPPORT_PATH/lib/markdown_to_help.rb" &lt; "$TM_BUNDLE_SUPPORT/../README.md"
 
 html_footer
 </string>

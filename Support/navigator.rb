@@ -40,7 +40,8 @@ class Navigator
 
   @log = NavLogger.get_logger
   @log.level = NavLogger::WARN
-  @log.set_subjects GENERAL_LOG | NAVIGATOR_LOG | POSITION_LOG
+  # @log.set_subjects GENERAL_LOG | NAVIGATOR_LOG | POSITION_LOG
+  @log.set_subjects 0
   @log.use_html = true;
 
   def self.check_doc(doc)
