@@ -1,7 +1,7 @@
 #Navigator
 ---
 
-You can [test link](#cgi_exp).
+You can [test link](#notes_tech).
 
 ##Release Notes for version 1.0a1
 This is the first release of my Navigator system for TextMate.  
@@ -224,7 +224,7 @@ Examples of annotations are:
 	or
 	# DOC: Explain the usage of TM\_NAVIGATOR\_FORCE\_OBJC in the user manual
 
-Navigator comes preconfigured with a number of tags. You may add change or remove tags as described in the <a href='javascript:goTo("notes_tech")'>Behind the Scenes</a> at the end of this section.  
+Navigator comes preconfigured with a number of tags. You may add change or remove tags as described in the [Behind the Scenes](#notes_tech) at the end of this section.  
 
 The preconfigured tags are:
 
