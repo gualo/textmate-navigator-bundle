@@ -127,7 +127,7 @@ If on the other hand the path is relative (i.e. does not begin with a '/') then 
 <a name="tags"/>
 ## *Tags and Lookup*
 The tags and lookup tool provides for source tagging and lookup when working with a project.  
-Source parsing and tagging is done using the underlying Exuberant Ctags program (Version 5.8 which includes experimental support for Objective-C) so it will parse any language known to it.  
+Source parsing and tagging is done using the underlying Exuberant Ctags program (Version 5.8.1 which includes experimental support for Objective-C) so it will parse any language known to it.  
 **Note**: As you edit your documents they will become out of sync with the saved positions as line numbers shift.<br/>
 There is an [experimental feature](#stack_exp), disabled by default, that allows for compensating this line shifting.
 
