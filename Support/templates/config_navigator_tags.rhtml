@@ -43,7 +43,7 @@ function selectGlobalTagPathFolder() {
 				</span>
 			</a>
 			<br/>
-			<input id="fld_TM_NAVIGATOR_TAGS_IGNORE" tabindex="410" type="text" size="100" value="<%=ENV['TM_NAVIGATOR_TAGS_IGNORE']%>" 
+			<input id="fld_TM_NAVIGATOR_TAGS_IGNORE" tabindex="410" type="text" size="100" value="<%=get_setting('TM_NAVIGATOR_TAGS_IGNORE')%>" 
 					onkeypress="tagKeyOnFirst(event);">
 		</p>
 					
@@ -59,12 +59,12 @@ function selectGlobalTagPathFolder() {
 				</span>
 			</a>
 			<br/>
-			<textarea id="fld_TM_NAVIGATOR_GLOBAL_TAG_PATH" tabindex="420" style="width:100%"rows="3" cols="100"/><%=ENV['TM_NAVIGATOR_GLOBAL_TAG_PATH']%></textarea>
+			<textarea id="fld_TM_NAVIGATOR_GLOBAL_TAG_PATH" tabindex="420" style="width:100%"rows="3" cols="100"/><%=get_setting('TM_NAVIGATOR_GLOBAL_TAG_PATH')%></textarea>
 		</p>
 
 		<p class="guidelines_title">Use smart lookup
 			<a class="tooltip" href="#">
-				<input id="fld_TM_NAVIGATOR_SMART_LOOKUP" tabindex="430" type="checkbox" <%=(ENV['TM_NAVIGATOR_SMART_LOOKUP']).empty? ? "uncheked" : "checked" %>/>&nbsp;
+				<input id="fld_TM_NAVIGATOR_SMART_LOOKUP" tabindex="430" type="checkbox" <%=(get_setting('TM_NAVIGATOR_SMART_LOOKUP')).empty? ? "uncheked" : "checked" %>/>&nbsp;
 				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
 				<br/>
 				<span class="custom_tt help_tt">
@@ -86,7 +86,7 @@ function selectGlobalTagPathFolder() {
 				</span>
 			</a>
 			<br/>
-			<input id="fld_TM_NAVIGATOR_TAGS_FNAME" tabindex="440" type="text" size="50" value="<%=ENV['TM_NAVIGATOR_TAGS_FNAME']%>"/>
+			<input id="fld_TM_NAVIGATOR_TAGS_FNAME" tabindex="440" type="text" size="50" value="<%=get_setting('TM_NAVIGATOR_TAGS_FNAME')%>"/>
 		</p>
 
 		<p class="guidelines_title">Global tags file path&nbsp;
@@ -102,7 +102,7 @@ function selectGlobalTagPathFolder() {
 				</span>
 			</a>
 			<br/>
-			<input id="fld_TM_NAVIGATOR_GLOBAL_TAG_FILE_PATH" tabindex="450" type="text" size="100" value="<%=ENV['TM_NAVIGATOR_GLOBAL_TAG_FILE_PATH']%>"/>
+			<input id="fld_TM_NAVIGATOR_GLOBAL_TAG_FILE_PATH" tabindex="450" type="text" size="100" value="<%=get_setting('TM_NAVIGATOR_GLOBAL_TAG_FILE_PATH')%>"/>
 			<input class="stdButton" id="idSelectGlobalTagPathFolder" tabindex="460" type="button" value="Browse..."
 				onclick="selectGlobalTagPathFolder();"
 				onkeypress="tagKeyOnLast(event);"
@@ -115,7 +115,7 @@ function selectGlobalTagPathFolder() {
 			<br/>
 			This variable may contain a list of ':' separated paths to include in the scan.<br/>
 			(currently <span class="monospaced"><%=
-				(ENV['TM_NAVIGATOR_PROJECT_TAGS_PATH'].nil? || ENV['TM_NAVIGATOR_PROJECT_TAGS_PATH'].empty?) ? "empty" : "\"#{ENV['TM_NAVIGATOR_PROJECT_TAGS_PATH']}\""
+				(get_setting('TM_NAVIGATOR_PROJECT_TAGS_PATH').nil? || get_setting('TM_NAVIGATOR_PROJECT_TAGS_PATH').empty?) ? "empty" : "\"#{get_setting('TM_NAVIGATOR_PROJECT_TAGS_PATH')}\""
 				%></span>)
 		</p>
 		<br/>

@@ -37,34 +37,43 @@ function selectNavstackPathFolder() {
 	<form id="positions_form" class="tab_form">
 		<p class="guidelines_title">Positions stack file name&nbsp;
 			<a class="tooltip guidelines_title" href="#">
-				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<img valign="bottom" width="16px"
+					src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
 				<span class="custom_tt help_tt">
-					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<img class="tt_img"
+						src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png"
+						height="48" width="48" />
 					<em>Positions stack file name</em>
 					The position's stack is saved to this file located in the
 					directory specified below,
-					currently <b class="monospaced">"<%=ENV['TM_NAVIGATOR_NAVSTACK_PATH']%>"</b>
+					currently <b class="monospaced">"<%=get_setting('TM_NAVIGATOR_NAVSTACK_PATH')%>"</b>
 			</a>
 			<br/>
-			<input id="fld_TM_NAVIGATOR_NAVSTACK_FNAME" tabindex="310" type="text"  size="50" value="<%=ENV['TM_NAVIGATOR_NAVSTACK_FNAME']%>"
+			<input id="fld_TM_NAVIGATOR_NAVSTACK_FNAME" tabindex="310"
+				type="text"  size="50"
+				value="<%=get_setting('TM_NAVIGATOR_NAVSTACK_FNAME')%>"
 				onkeypress="navKeyOnFirst(event);"/>
 		</p>
 		
 		<p class="guidelines_title">Positions stack file path&nbsp;
 			<a class="tooltip guidelines_title" href="#">
-				<img valign="bottom" width="16px" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
+				<img valign="bottom" width="16px"
+					src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png">
 				<span class="custom_tt help_tt">
-					<img class="tt_img" src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png" height="48" width="48" />
+					<img class="tt_img"
+						src="file://<%=ENV['TM_BUNDLE_SUPPORT']%>/Resources/Help.png"
+						height="48" width="48" />
 					<em>Positions stack file path</em>
 					The path the positions stack is saved to.<br/>
 					You may include '~' and environment variables (ex:$TMPDIR). These
 					will be expanded.<br>
-					Currently <b class="monospaced">"<%=positions.stack_path%>"</b>
+					Currently <b class="monospaced">"<%=get_setting('TM_NAVIGATOR_NAVSTACK_PATH')%>"</b>
 				</span>
 			</a>
 			<br/>
-			<input id="fld_TM_NAVIGATOR_NAVSTACK_PATH" tabindex="320" type="text"  size="100" value="<%=ENV['TM_NAVIGATOR_NAVSTACK_PATH']%>"/>
-			<input class="stdButton" id="idSelectNavstackPathFolder" tabindex="330" type="button" value="Browse..."
+			<input id="fld_TM_NAVIGATOR_NAVSTACK_PATH" tabindex="320" type="text"  size="100" value="<%=get_setting('TM_NAVIGATOR_NAVSTACK_PATH')%>"/>
+			<input class="stdButton" id="idSelectNavstackPathFolder"
+				tabindex="330" type="button" value="Browse..."
 				onclick="selectNavstackPathFolder();"
 				onkeypress="navKeyOnLast(event);"
 				/>
